@@ -3,578 +3,552 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sistem de Control — 30 de Zile</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Design Your Destiny — Laurentiu Mocanu</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:         #f8f7f4;
-    --white:      #ffffff;
-    --blue:       #3d5a80;
-    --lila:       #7b6fa0;
-    --lila-light: #ede8f5;
-    --blue-light: #e8eef5;
-    --text:       #1a1a2e;
-    --muted:      #7a7a8a;
-    --border:     #e2dff0;
-    --radius:     10px;
-    --radius-lg:  18px;
+    --black: #0a0a0a;
+    --white: #ffffff;
+    --blue: #2952e3;
+    --yellow: #f5c842;
+    --yellow-dark: #d4a900;
+    --text: #111111;
+    --muted: #666666;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
     font-size: 16px;
-    line-height: 1.75;
+    line-height: 1.6;
     overflow-x: hidden;
   }
-  h1, h2, h3 { font-family: 'Playfair Display', serif; line-height: 1.1; }
-  .display  { font-size: clamp(38px, 7.5vw, 80px); font-weight: 900; }
-  .headline { font-size: clamp(28px, 5vw, 52px); font-weight: 700; }
-  .subhead  { font-size: clamp(20px, 3vw, 30px); font-weight: 700; }
-  p { color: #4a4a6a; font-weight: 300; }
-  strong { font-weight: 600; color: var(--text); }
-  .container { max-width: 760px; margin: 0 auto; padding: 0 20px; }
-  .section   { padding: 80px 0; }
 
-  .pill {
-    display: inline-block;
-    background: linear-gradient(135deg, var(--blue-light), var(--lila-light));
-    color: var(--lila);
-    font-size: 11px; font-weight: 600;
-    letter-spacing: 0.18em; text-transform: uppercase;
-    padding: 7px 18px; border-radius: 40px; margin-bottom: 20px;
+  /* BAR */
+  .bar {
+    background: var(--blue);
+    color: #fff;
+    text-align: center;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+    position: sticky;
+    top: 0;
+    z-index: 100;
   }
-  .hr {
-    width: 44px; height: 3px;
-    background: linear-gradient(90deg, var(--blue), var(--lila));
-    border-radius: 2px; margin: 0 auto 28px;
-  }
-  .hr.left { margin: 0 0 24px; }
+  .bar strong { font-weight: 800; }
 
   /* HERO */
-  .hero {
-    background: var(--white);
-    padding: 80px 20px 68px;
-    text-align: center;
-    position: relative; overflow: hidden;
+  .hero { background: var(--black); text-align: center; padding: 60px 20px 48px; }
+  .hero h1 {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(42px, 10vw, 88px);
+    line-height: 1.0;
+    color: var(--white);
+    margin-bottom: 24px;
   }
-  .hero::before {
-    content: '';
-    position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(123,111,160,0.06) 0%, transparent 65%);
-    pointer-events: none;
+  .hero-img {
+    width: 100%; max-width: 720px; border-radius: 8px;
+    margin: 0 auto 28px; display: block;
+    object-fit: cover; max-height: 420px;
   }
-  .hero-photo {
-    width: 100px; height: 100px; border-radius: 50%;
-    object-fit: cover; border: 3px solid var(--lila-light);
-    margin: 0 auto 16px; display: block;
-    box-shadow: 0 4px 20px rgba(123,111,160,0.15);
-  }
-  .hero h1 { color: var(--text); margin-bottom: 18px; }
-  .hero h1 em { font-style: italic; color: var(--lila); }
   .hero-sub {
-    font-size: clamp(15px, 2.2vw, 18px);
-    max-width: 500px; margin: 0 auto 36px;
-    color: var(--muted); font-weight: 300; line-height: 1.8;
+    font-size: clamp(16px, 2.5vw, 20px);
+    color: rgba(255,255,255,0.8);
+    max-width: 600px; margin: 0 auto 32px;
+    font-weight: 300; line-height: 1.7;
   }
-  .stats-row {
-    display: flex; justify-content: center; gap: 44px;
-    flex-wrap: wrap; margin-bottom: 40px;
-    padding: 24px 0;
-    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-  }
-  .stat { text-align: center; }
-  .stat-num {
-    font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 900;
-    color: var(--blue); display: block; line-height: 1; margin-bottom: 4px;
-  }
-  .stat-label { font-size: 11px; color: var(--muted); letter-spacing: 0.08em; }
+  .hero-meta { display: flex; justify-content: center; gap: 48px; margin-bottom: 36px; flex-wrap: wrap; }
+  .hero-meta-item { text-align: center; }
+  .hero-meta-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 4px; }
+  .hero-meta-val { font-size: 18px; font-weight: 700; color: var(--white); }
 
   /* BUTTONS */
-  .btn-main {
-    display: inline-block;
-    background: linear-gradient(135deg, var(--blue), var(--lila));
-    color: #fff; font-family: 'DM Sans', sans-serif; font-weight: 600;
-    font-size: 15px; letter-spacing: 0.03em;
-    padding: 16px 44px; border-radius: 50px; text-decoration: none;
-    transition: all 0.25s; box-shadow: 0 6px 24px rgba(91,111,160,0.3);
+  .btn-yellow {
+    display: inline-block; background: var(--yellow); color: var(--black);
+    font-weight: 800; font-size: 17px; padding: 18px 52px;
+    border-radius: 50px; text-decoration: none; transition: all 0.2s;
+    box-shadow: 0 4px 24px rgba(245,200,66,0.3);
   }
-  .btn-main:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(91,111,160,0.4); }
-  .btn-outline {
-    display: inline-block; border: 1.5px solid var(--lila); color: var(--lila);
-    font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: 15px;
-    padding: 14px 36px; border-radius: 50px; text-decoration: none; transition: all 0.25s;
-  }
-  .btn-outline:hover { background: var(--lila-light); transform: translateY(-2px); }
-  .btn-ghost {
-    display: inline-block; color: var(--muted); font-size: 13px;
-    text-decoration: none; margin-top: 10px; transition: color 0.2s;
-  }
-  .btn-ghost:hover { color: var(--blue); }
-  .btn-white {
-    display: inline-block; background: #fff; color: var(--lila);
-    font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 15px;
-    padding: 16px 44px; border-radius: 50px; text-decoration: none; transition: all 0.25s;
-    box-shadow: 0 6px 24px rgba(0,0,0,0.15);
-  }
-  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(0,0,0,0.2); }
+  .btn-yellow:hover { background: var(--yellow-dark); transform: translateY(-2px); }
 
-  /* PROBLEM */
-  .problem {
-    background: linear-gradient(135deg, var(--blue) 0%, var(--lila) 100%);
-    padding: 60px 20px; text-align: center;
+  .btn-teal {
+    display: inline-block; background: #1a6b6b; color: var(--white);
+    font-weight: 700; font-size: 15px; padding: 16px 40px;
+    border-radius: 4px; text-decoration: none; transition: all 0.2s;
   }
-  .problem h2 { color: #fff; font-size: clamp(20px, 3.5vw, 32px); margin-bottom: 14px; }
-  .problem p  { color: rgba(255,255,255,0.76); font-size: 16px; max-width: 540px; margin: 0 auto; }
+  .btn-teal:hover { background: #145757; transform: translateY(-2px); }
 
-  /* ACCORDION */
-  .acc-wrap { display: flex; flex-direction: column; gap: 10px; }
-  .acc-item {
-    border: 1.5px solid var(--border); border-radius: var(--radius);
-    overflow: hidden; background: var(--white); transition: border-color 0.2s;
+  .btn-dark {
+    display: inline-block; background: #111; color: var(--white);
+    font-weight: 700; font-size: 15px; padding: 16px 40px;
+    border-radius: 4px; text-decoration: none; transition: all 0.2s;
+    border: 1px solid #333;
   }
-  .acc-item.open { border-color: var(--lila); }
-  .acc-btn {
-    width: 100%; background: none; border: none;
-    padding: 18px 22px;
-    display: flex; justify-content: space-between; align-items: center;
-    cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 14px;
-    font-weight: 600; color: var(--text); letter-spacing: 0.05em;
-    text-transform: uppercase; text-align: left; gap: 12px; transition: color 0.2s;
+  .btn-dark:hover { background: #1a1a1a; transform: translateY(-2px); }
+
+  /* TABS */
+  .tabs-section { background: var(--black); padding: 0 20px 80px; }
+  .tabs-head { text-align: center; margin-bottom: 16px; }
+  .tabs-head h2 { font-family: 'Anton', sans-serif; font-size: clamp(28px, 5vw, 48px); color: var(--white); }
+
+  .tab-nav {
+    display: flex; max-width: 720px; margin: 0 auto;
+    border-bottom: 2px solid #333; overflow-x: auto;
   }
-  .acc-btn:hover, .acc-item.open .acc-btn { color: var(--lila); }
-  .acc-icon {
-    flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
-    border: 1.5px solid var(--border);
+  .tab-btn {
+    flex: 1; min-width: 100px;
+    background: none; border: none;
+    padding: 14px 10px;
+    font-family: 'Inter', sans-serif; font-size: 12px;
+    font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+    color: rgba(255,255,255,0.4); cursor: pointer; transition: all 0.2s;
+    border-bottom: 3px solid transparent; margin-bottom: -2px;
+    white-space: nowrap;
+  }
+  .tab-btn.active { color: var(--white); border-bottom-color: var(--yellow); }
+
+  .tab-content { display: none; max-width: 720px; margin: 0 auto; }
+  .tab-content.active { display: block; }
+
+  .tab-card {
+    background: var(--white); color: var(--text);
+    border-radius: 8px; padding: 40px 32px; margin-top: 2px;
+  }
+
+  .tab-badge {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 5px 14px; border-radius: 20px; margin-bottom: 16px;
+  }
+  .badge-free { background: #e8f5ee; color: #2d7a50; }
+  .badge-core { background: #e8eef5; color: #2952e3; }
+  .badge-pro  { background: #f5f0e8; color: #8a5a00; }
+  .badge-vip  { background: #1a1a1a; color: #f5c842; }
+
+  .tab-card h3 { font-family: 'Anton', sans-serif; font-size: 28px; color: var(--text); margin-bottom: 4px; }
+  .tab-card-sub { font-size: 14px; color: var(--muted); margin-bottom: 20px; font-style: italic; }
+  .tab-card-desc { font-size: 15px; color: #444; line-height: 1.8; margin-bottom: 24px; font-weight: 300; }
+
+  .tab-list { list-style: none; margin-bottom: 28px; display: flex; flex-direction: column; gap: 14px; }
+  .tab-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; font-weight: 500; color: var(--text); line-height: 1.4; }
+  .tab-list li svg { flex-shrink: 0; width: 20px; height: 20px; color: #333; margin-top: 1px; }
+
+  .tab-price-row { display: flex; align-items: baseline; gap: 12px; margin-bottom: 8px; }
+  .tab-price { font-family: 'Anton', sans-serif; font-size: 42px; color: var(--text); }
+  .tab-price-old { font-size: 18px; color: #aaa; text-decoration: line-through; }
+  .tab-urgency { font-size: 13px; font-weight: 700; color: var(--blue); margin-bottom: 20px; }
+
+  /* SECTION LABEL */
+  .section-label {
     display: flex; align-items: center; justify-content: center;
-    font-size: 16px; color: var(--lila); transition: transform 0.3s, background 0.2s;
+    gap: 10px; font-size: 12px; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 20px;
   }
-  .acc-item.open .acc-icon { transform: rotate(45deg); background: var(--lila-light); }
-  .acc-body {
-    max-height: 0; overflow: hidden;
-    transition: max-height 0.4s ease, padding 0.3s; padding: 0 22px;
-  }
-  .acc-item.open .acc-body { max-height: 300px; padding: 0 22px 22px; }
-  .acc-body p { font-size: 15px; color: #4a4a6a; line-height: 1.85; }
-
-  /* OFFERS */
-  .offer-card {
-    background: var(--white); border: 1.5px solid var(--border);
-    border-radius: var(--radius-lg); padding: 36px 32px; margin-bottom: 14px;
-    position: relative; overflow: hidden; transition: box-shadow 0.3s, border-color 0.3s;
-  }
-  .offer-card:hover { box-shadow: 0 8px 36px rgba(91,111,160,0.1); border-color: var(--lila); }
-  .offer-card.featured { border-color: var(--lila); box-shadow: 0 8px 36px rgba(91,111,160,0.12); }
-  .offer-card.featured::after {
-    content: 'Cel mai popular';
-    position: absolute; top: 16px; right: 16px;
-    background: linear-gradient(135deg, var(--blue), var(--lila));
-    color: #fff; font-size: 10px; font-weight: 600;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    padding: 5px 14px; border-radius: 20px;
-  }
-  .offer-top {
-    display: flex; align-items: flex-start; justify-content: space-between;
-    gap: 12px; margin-bottom: 16px; flex-wrap: wrap;
-  }
-  .badge {
-    font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
-    text-transform: uppercase; padding: 5px 14px; border-radius: 20px;
-  }
-  .badge-free  { background: #e8f5ee; color: #2d7a50; }
-  .badge-core  { background: var(--lila-light); color: var(--lila); }
-  .badge-vip   { background: var(--blue-light); color: var(--blue); }
-  .offer-price {
-    font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 900; color: var(--blue);
-  }
-  .price-free { color: #2d7a50; font-size: 22px; }
-  .offer-card h3 { font-size: clamp(22px, 3.5vw, 30px); margin-bottom: 6px; }
-  .offer-tagline { font-size: 15px; font-weight: 500; color: var(--lila); margin-bottom: 14px; }
-  .offer-body { font-size: 15px; color: #4a4a6a; line-height: 1.85; margin-bottom: 22px; }
-  .offer-list { list-style: none; margin-bottom: 24px; display: flex; flex-direction: column; gap: 9px; }
-  .offer-list li {
-    font-size: 14px; color: var(--text);
-    display: flex; align-items: flex-start; gap: 10px;
-  }
-  .offer-list li::before {
-    content: '✓'; flex-shrink: 0; width: 20px; height: 20px;
-    background: linear-gradient(135deg, var(--blue), var(--lila));
-    color: #fff; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 11px; font-weight: 700; margin-top: 1px;
-  }
-  .result-box {
-    background: linear-gradient(135deg, var(--blue-light), var(--lila-light));
-    border-radius: var(--radius); padding: 16px 18px; margin-bottom: 24px;
-  }
-  .result-label {
-    font-size: 10px; font-weight: 600; letter-spacing: 0.18em;
-    text-transform: uppercase; color: var(--lila); margin-bottom: 5px;
-  }
-  .result-box p { font-size: 14px; color: var(--text); font-weight: 500; line-height: 1.6; }
-
-  /* STEPS inside offer */
-  .step-row {
-    display: flex; gap: 16px; padding: 20px 0;
-    border-bottom: 1px solid var(--border); align-items: flex-start;
-  }
-  .step-row:last-child { border-bottom: none; margin-bottom: 24px; }
-  .step-circle {
-    flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--blue), var(--lila));
-    color: #fff; font-family: 'Playfair Display', serif; font-weight: 700;
-    font-size: 15px; display: flex; align-items: center; justify-content: center;
-  }
-  .step-text h4 {
-    font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600;
-    color: var(--text); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px;
-  }
-  .step-text p { font-size: 13px; color: var(--muted); line-height: 1.75; }
-
-  /* PROOF */
-  .proof-statement {
-    text-align: center; font-size: clamp(16px, 2.5vw, 20px); color: var(--muted);
-    max-width: 560px; margin: 0 auto 44px; line-height: 1.8; font-weight: 300;
-  }
-  .proof-statement strong { color: var(--text); font-weight: 600; }
-  .proof-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-    gap: 10px; margin-bottom: 40px;
-  }
-  .proof-card {
-    background: var(--white); border: 1.5px solid var(--border);
-    border-radius: var(--radius); overflow: hidden;
-  }
-  .proof-ph {
-    height: 150px; display: flex; align-items: center; justify-content: center;
-    background: linear-gradient(135deg, var(--blue-light), var(--lila-light));
-    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--lila); font-weight: 500;
-  }
+  .section-label .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
 
   /* ABOUT */
-  .about-inner {
-    display: grid; grid-template-columns: 180px 1fr;
-    gap: 48px; align-items: start;
+  .about-dark { background: var(--black); padding: 80px 20px; text-align: center; }
+  .about-dark .section-label { color: rgba(255,255,255,0.6); }
+  .about-dark h2 {
+    font-family: 'Anton', sans-serif; font-size: clamp(32px, 6vw, 60px);
+    color: var(--white); margin-bottom: 16px;
+    max-width: 680px; margin-left: auto; margin-right: auto; line-height: 1.05;
   }
-  @media (max-width: 600px) {
-    .about-inner { grid-template-columns: 1fr; gap: 28px; }
-    .about-ph { width: 110px !important; height: 140px !important; }
+  .about-sub { font-size: 16px; color: rgba(255,255,255,0.65); max-width: 560px; margin: 0 auto 32px; font-weight: 300; line-height: 1.8; }
+  .about-photo { width: 100%; max-width: 480px; border-radius: 12px; margin: 0 auto; display: block; object-fit: cover; max-height: 520px; }
+  .credentials { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 28px auto 0; max-width: 560px; }
+  .cred-tag {
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.8); font-size: 12px; font-weight: 600;
+    letter-spacing: 0.06em; padding: 7px 16px; border-radius: 4px;
   }
-  .about-ph {
-    width: 180px; height: 220px;
-    background: linear-gradient(135deg, var(--blue-light), var(--lila-light));
-    border-radius: var(--radius-lg); display: flex; align-items: center;
-    justify-content: center; font-size: 11px; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--lila); font-weight: 500;
-    border: 2px solid var(--lila-light);
-  }
-  .about-text p { font-size: 15px; margin-bottom: 12px; line-height: 1.85; }
 
-  /* FINAL */
-  .final {
-    background: linear-gradient(135deg, var(--blue) 0%, var(--lila) 100%);
-    text-align: center; padding: 96px 20px;
-  }
-  .final h2 { color: #fff; margin-bottom: 14px; }
-  .final h2 em { font-style: italic; }
-  .final > .container > p { color: rgba(255,255,255,0.74); font-size: 17px; max-width: 440px; margin: 0 auto 36px; }
-  .final-stack { display: flex; flex-direction: column; align-items: center; gap: 12px; }
-  .trust-row {
-    display: flex; justify-content: center; gap: 24px; flex-wrap: wrap;
-    margin-top: 40px; padding-top: 32px;
-    border-top: 1px solid rgba(255,255,255,0.2);
-  }
-  .trust-item { display: flex; align-items: center; gap: 7px; font-size: 13px; color: rgba(255,255,255,0.68); }
-  .trust-item span { font-size: 15px; }
+  /* BENEFITS */
+  .benefits { background: var(--blue); padding: 80px 20px; text-align: center; }
+  .benefits .section-label { color: rgba(255,255,255,0.7); }
+  .benefits h2 { font-family: 'Anton', sans-serif; font-size: clamp(32px, 6vw, 56px); color: var(--white); margin-bottom: 56px; line-height: 1.05; }
+  .benefits-grid { max-width: 680px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px; }
+  .benefit-item h3 { font-family: 'Anton', sans-serif; font-size: clamp(22px, 4vw, 32px); color: var(--white); margin-bottom: 10px; }
+  .benefit-item p { font-size: 16px; color: rgba(255,255,255,0.8); font-weight: 300; line-height: 1.7; max-width: 520px; margin: 0 auto; }
+
+  /* WHITE SECTION */
+  .white-section { background: var(--white); padding: 80px 20px; text-align: center; color: var(--text); }
+  .white-section h2 { font-family: 'Anton', sans-serif; font-size: clamp(30px, 6vw, 56px); color: var(--text); margin-bottom: 20px; line-height: 1.05; max-width: 640px; margin-left: auto; margin-right: auto; }
+  .white-section p { font-size: 17px; color: #444; max-width: 580px; margin: 0 auto 36px; font-weight: 300; line-height: 1.8; }
+
+  /* DAYS */
+  .days { background: var(--white); padding: 0 20px 80px; }
+  .day-item { max-width: 720px; margin: 0 auto 60px; text-align: center; }
+  .day-label { font-size: 13px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; font-weight: 500; }
+  .day-item h3 { font-family: 'Anton', sans-serif; font-size: clamp(26px, 5vw, 42px); color: var(--text); margin-bottom: 16px; }
+  .day-item p { font-size: 16px; color: #555; line-height: 1.8; margin-bottom: 24px; font-weight: 300; }
+  .day-img-ph { width: 100%; max-width: 720px; height: 180px; background: linear-gradient(135deg, #e8eef5, #ede8f5); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: #aaa; }
+
+  /* BLUE CTA */
+  .blue-cta { background: var(--blue); padding: 64px 20px; text-align: center; }
+  .blue-cta h2 { font-family: 'Anton', sans-serif; font-size: clamp(28px, 6vw, 52px); color: var(--white); margin-bottom: 16px; line-height: 1.05; }
+  .blue-cta p { font-size: 17px; color: rgba(255,255,255,0.8); max-width: 520px; margin: 0 auto 32px; font-weight: 300; }
+
+  /* BELIEF */
+  .belief-tags { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+  .belief-tag { background: #f0f0f0; color: var(--text); font-size: 14px; font-weight: 500; padding: 10px 18px; border-radius: 6px; font-style: italic; }
+
+  /* GUARANTEE */
+  .guarantee { background: var(--black); padding: 80px 20px; text-align: center; }
+  .guarantee h2 { font-family: 'Anton', sans-serif; font-size: clamp(32px, 6vw, 56px); color: var(--white); margin-bottom: 24px; line-height: 1.05; }
+  .guarantee p { font-size: 16px; color: rgba(255,255,255,0.7); max-width: 580px; margin: 0 auto 40px; line-height: 1.8; font-weight: 300; }
+  .guarantee-box { background: #111; border: 1px solid #222; border-radius: 12px; padding: 36px 28px; max-width: 600px; margin: 0 auto; }
+  .guarantee-box p { font-size: 15px; color: rgba(255,255,255,0.6); line-height: 1.85; margin: 0; }
+
+  /* FAQ */
+  .faq { background: var(--white); padding: 80px 20px; color: var(--text); }
+  .faq-inner { max-width: 720px; margin: 0 auto; }
+  .faq-title { text-align: center; margin-bottom: 40px; }
+  .faq-title h2 { font-family: 'Anton', sans-serif; font-size: clamp(28px, 5vw, 48px); color: var(--text); }
+  .faq-list { display: flex; flex-direction: column; }
+  .faq-item { border-bottom: 1px solid #e0e0e0; }
+  .faq-item:first-child { border-top: 1px solid #e0e0e0; }
+  .faq-btn { width: 100%; background: none; border: none; padding: 20px 0; display: flex; align-items: flex-start; gap: 16px; cursor: pointer; text-align: left; font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 600; color: var(--text); transition: color 0.2s; }
+  .faq-btn:hover { color: var(--blue); }
+  .faq-arrow { flex-shrink: 0; font-size: 18px; color: var(--text); margin-top: 1px; transition: transform 0.3s; }
+  .faq-item.open .faq-arrow { transform: rotate(180deg); }
+  .faq-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s; }
+  .faq-item.open .faq-body { max-height: 300px; padding: 0 0 20px 36px; }
+  .faq-body p { font-size: 15px; color: #555; line-height: 1.8; font-weight: 300; }
+
+  /* FINAL CTA */
+  .final-cta { background: var(--blue); padding: 80px 20px; text-align: center; position: relative; overflow: hidden; }
+  .final-cta-bg { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: 'Anton', sans-serif; font-size: 160px; color: rgba(255,255,255,0.04); white-space: nowrap; pointer-events: none; }
+  .final-cta-inner { position: relative; z-index: 1; }
+  .final-cta h2 { font-family: 'Anton', sans-serif; font-size: clamp(32px, 7vw, 64px); color: var(--white); margin-bottom: 32px; line-height: 1.0; }
+  .trust-row { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; margin-top: 36px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.15); }
+  .trust-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: rgba(255,255,255,0.65); font-weight: 500; }
+  .trust-check { width: 18px; height: 18px; border-radius: 50%; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 10px; flex-shrink: 0; }
 
   /* STICKY */
-  .sticky {
-    position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%);
-    background: rgba(255,255,255,0.96); border: 1.5px solid var(--border);
-    backdrop-filter: blur(12px); padding: 11px 22px; border-radius: 60px;
-    display: flex; align-items: center; gap: 16px; z-index: 1000;
-    box-shadow: 0 4px 28px rgba(91,111,160,0.18);
-    animation: slideUp 0.5s ease 1.2s both;
-    flex-wrap: wrap; justify-content: center;
-  }
-  @keyframes slideUp {
-    from { opacity:0; transform: translateX(-50%) translateY(14px); }
-    to   { opacity:1; transform: translateX(-50%) translateY(0); }
-  }
-  .sticky-txt { font-size: 13px; color: var(--muted); white-space: nowrap; font-weight: 500; }
-  .sticky .btn-main { padding: 10px 22px; font-size: 13px; }
+  .sticky { position: fixed; bottom: 0; left: 0; right: 0; background: var(--blue); padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; z-index: 999; animation: slideUp 0.4s ease 1.5s both; flex-wrap: wrap; }
+  @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+  .sticky-text { font-size: 14px; font-weight: 600; color: #fff; flex: 1; min-width: 200px; }
+  .sticky-text span { color: var(--yellow); }
+  .sticky .btn-yellow { padding: 12px 28px; font-size: 14px; }
 
   /* FADE */
-  .fade { opacity:0; transform:translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
-  .fade.in { opacity:1; transform:translateY(0); }
+  .fade { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade.in { opacity: 1; transform: translateY(0); }
 
-  @media (max-width:500px) {
-    .offer-card { padding: 24px 18px; }
-    .section { padding: 60px 0; }
-    .stats-row { gap: 24px; }
+  @media (max-width: 500px) {
+    .tab-card { padding: 28px 18px; }
+    .tab-btn { font-size: 10px; padding: 12px 6px; }
+    .sticky-text { font-size: 12px; }
+    .sticky .btn-yellow { padding: 10px 18px; font-size: 13px; }
   }
 </style>
 </head>
 <body>
 
+<!-- BAR -->
+<div class="bar">
+  👉 Accesează <strong>Gratuit</strong> acum — primul pas spre controlul real.
+</div>
+
 <!-- HERO -->
 <section class="hero">
-  <div class="container">
-    <span class="pill fade">Program de Transformare · 30 de Zile</span>
-    <h1 class="display fade">
-      Oamenii care obțin rezultate<br>
-      nu au mai multă voință.<br>
-      <em>Au un sistem mai bun.</em>
-    </h1>
-    <p class="hero-sub fade">
-      În 30 de zile îți construiești structura care te duce mai departe —
-      indiferent de circumstanțe.
-    </p>
-    <div class="stats-row fade">
-      <div class="stat"><span class="stat-num">30</span><span class="stat-label">Zile de sistem</span></div>
-      <div class="stat"><span class="stat-num">3</span><span class="stat-label">Niveluri de suport</span></div>
-      <div class="stat"><span class="stat-num">0</span><span class="stat-label">Motivație necesară</span></div>
+  <h1 class="fade">Design Your<br>Destiny.</h1>
+  <img src="photo-hero.jpg" alt="Laurentiu Mocanu" class="hero-img fade">
+  <p class="hero-sub fade">Nu ai nevoie de mai multă motivație. Ai nevoie de un sistem care funcționează indiferent de circumstanțe.</p>
+  <div class="hero-meta fade">
+    <div class="hero-meta-item">
+      <div class="hero-meta-label">Durata</div>
+      <div class="hero-meta-val">30 Zile</div>
     </div>
-    <div class="fade" style="display:flex;flex-direction:column;align-items:center;gap:10px;">
-      <a href="#free" class="btn-main">👉 Începe Gratuit</a>
-      <a href="#offers" class="btn-ghost">Vezi toate opțiunile ↓</a>
+    <div class="hero-meta-item">
+      <div class="hero-meta-label">Niveluri</div>
+      <div class="hero-meta-val">De unde începi?</div>
+    </div>
+    <div class="hero-meta-item">
+      <div class="hero-meta-label">Start</div>
+      <div class="hero-meta-val">Imediat</div>
     </div>
   </div>
+  <a href="#offers" class="btn-yellow fade">👉 Accesează Gratuit</a>
 </section>
 
-<!-- PROBLEM -->
-<section class="problem">
-  <div class="container">
-    <h2 class="fade">Ciclul de start-stop nu e un defect de caracter.</h2>
-    <p class="fade">E absența unui sistem. Ai încercat fără fundație. Și orice construiești fără fundație cedează — indiferent cât de determinat ești la început.</p>
+<!-- TABS -->
+<section class="tabs-section" id="offers">
+  <div class="tabs-head fade"><h2>Alege nivelul tău</h2></div>
+  <div class="tab-nav fade">
+    <button class="tab-btn active" onclick="switchTab('free',this)">Free Entry</button>
+    <button class="tab-btn" onclick="switchTab('recal',this)">The Recalibration</button>
+    <button class="tab-btn" onclick="switchTab('system',this)">The System</button>
+    <button class="tab-btn" onclick="switchTab('vip',this)">Full Transformation</button>
   </div>
-</section>
 
-<!-- WHY STUCK -->
-<section class="section" style="background:var(--white);">
-  <div class="container">
-    <div style="text-align:center;margin-bottom:44px;" class="fade">
-      <div class="hr"></div>
-      <h2 class="headline">De ce ești blocat</h2>
-    </div>
-    <div class="acc-wrap fade">
-      <div class="acc-item open">
-        <button class="acc-btn">Dacă ai mai eșuat înainte <span class="acc-icon">+</span></button>
-        <div class="acc-body"><p>Prea multe informații fără structură. Ai început de nenumărate ori. Dar fără un sistem real, fiecare start nou se termina în același loc. <strong>Nu îți lipsea voința. Îți lipsea cadrul.</strong></p></div>
-      </div>
-      <div class="acc-item">
-        <button class="acc-btn">Dacă ești constant în alte zone, dar nu și în disciplina personală <span class="acc-icon">+</span></button>
-        <div class="acc-body"><p>Performezi la job, ești organizat în alte zone, dar când vine vorba de tine — te oprești. <strong>Problema nu ești tu. E că nu ai un sistem construit special pentru asta.</strong></p></div>
-      </div>
-      <div class="acc-item">
-        <button class="acc-btn">Dacă știi ce trebuie să faci, dar nu o faci <span class="acc-icon">+</span></button>
-        <div class="acc-body"><p>Cunoașterea fără execuție e frustrare. Nu ai nevoie de mai multă informație. Ai nevoie de o structură care transformă ce știi în ce faci — zilnic, fără să depinzi de starea de spirit.</p></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- OFFERS -->
-<section class="section" id="offers" style="background:var(--bg);">
-  <div class="container">
-    <div style="text-align:center;margin-bottom:44px;" class="fade">
-      <div class="hr"></div>
-      <h2 class="headline">Roadmap-ul tău</h2>
-      <p style="margin-top:10px;">Trei niveluri. Un singur obiectiv: control real.</p>
-    </div>
-
-    <!-- FREE -->
-    <div class="offer-card fade" id="free">
-      <div class="offer-top">
-        <span class="badge badge-free">Gratuit · Primul Pas</span>
-        <span class="offer-price price-free">Gratuit</span>
-      </div>
-      <h3>Resetare 30 de Zile</h3>
-      <p class="offer-tagline">Primul pas. Clar. Structurat. Fără presiune.</p>
-      <p class="offer-body">Dacă tot reîncepi de la zero — nu e o problemă de caracter. Nu ai avut structura potrivită. Ăsta e locul unde o construiești. Zilnic. Pas cu pas. Cu direcție clară.</p>
-      <ul class="offer-list">
-        <li>Acțiuni zilnice clare — fără să ghicești ce urmează</li>
-        <li>Claritate pe ce contează cu adevărat</li>
-        <li>O rutină construită să reziste</li>
-        <li>Primele rezultate reale în primele zile</li>
+  <!-- FREE -->
+  <div class="tab-content active" id="tab-free">
+    <div class="tab-card">
+      <span class="tab-badge badge-free">Free Entry — Primul Pas</span>
+      <h3>Intră Gratuit</h3>
+      <p class="tab-card-sub">Accesezi imediat după înregistrare</p>
+      <p class="tab-card-desc">Primul pas real. Fără presiune. Fără card. Primești structura care te scoate din haos și te pune pe o direcție clară.</p>
+      <ul class="tab-list">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>Acțiuni zilnice clare — fără să ghicești ce urmează</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>Claritate pe ce contează cu adevărat</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>O rutină construită să reziste</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>Primele rezultate în primele zile</li>
       </ul>
-      <div class="result-box">
-        <div class="result-label">Ce se schimbă</div>
-        <p>Ieși din haos. Intri pe o direcție pe care o poți ține.</p>
-      </div>
-      <a href="#" class="btn-main">👉 Începe Gratuit</a>
-    </div>
-
-    <!-- CORE -->
-    <div class="offer-card featured fade">
-      <div class="offer-top">
-        <span class="badge badge-core">Program Complet</span>
-        <span class="offer-price">$113 – $197</span>
-      </div>
-      <h3>Fundație + Sistem de Control</h3>
-      <p class="offer-tagline">Nu mai experimentezi. Construiești ceva care ține.</p>
-      <p class="offer-body">Cei care rămân constanți nu sunt diferiți de tine. Au o fundație pe care tu nu ai avut-o încă. Asta construim aici — mai întâi înțelegi ce te blochează la nivel profund, apoi instalezi un sistem de execuție care nu depinde de starea zilei.</p>
-      <div class="step-row">
-        <div class="step-circle">1</div>
-        <div class="step-text">
-          <h4>Fundație</h4>
-          <p>Identifici rădăcina autosabotajului. Reconstruiești identitatea din care acționezi. Stabilitate mentală care nu cedează la presiune.</p>
-        </div>
-      </div>
-      <div class="step-row">
-        <div class="step-circle">2</div>
-        <div class="step-text">
-          <h4>Sistem de Control</h4>
-          <p>Rutină zilnică simplă și replicabilă. Structură clară care elimină haosul. Execuție care funcționează indiferent de circumstanțe.</p>
-        </div>
-      </div>
-      <div class="result-box">
-        <div class="result-label">Rezultat</div>
-        <p>Nu mai ești omul care încearcă. Ești omul care execută.</p>
-      </div>
-      <a href="#" class="btn-main">👉 Accesează Sistemul</a>
-    </div>
-
-    <!-- VIP -->
-    <div class="offer-card fade">
-      <div class="offer-top">
-        <span class="badge badge-vip">Mentorat Privat · 1:1</span>
-        <span class="offer-price">$1,300+</span>
-      </div>
-      <h3>Mentorat Privat<br>30 de Zile</h3>
-      <p class="offer-tagline">Viteza maximă. Cu ghidare directă.</p>
-      <p class="offer-body">Aici nu mai construiești singur. Lucrăm direct, 30 de zile. Diagnostichez exact ce te blochează. Construiesc structura pe situația ta specifică. Te țin responsabil față de standarde clare. Fără confuzie. Fără timp pierdut.</p>
-      <ul class="offer-list">
-        <li>Ghidare 1:1 adaptată exact la tine</li>
-        <li>Feedback direct după fiecare etapă</li>
-        <li>Ajustări în timp real când ceva nu merge</li>
-        <li>Claritate și direcție în fiecare zi din cele 30</li>
-      </ul>
-      <div class="result-box">
-        <div class="result-label">Rezultat</div>
-        <p>Progres comprimat. Rezultate clare. Zero haos.</p>
-      </div>
-      <a href="#" class="btn-outline">👉 Aplică Acum</a>
-      <p style="font-size:12px;color:var(--muted);margin-top:10px;font-weight:400;">Locuri limitate — aplicații revizuite individual</p>
+      <div class="tab-price">GRATUIT</div>
+      <div class="tab-urgency">⚡ Acces imediat după înregistrare</div>
+      <a href="#" class="btn-yellow">👉 Accesează Gratuit</a>
     </div>
   </div>
-</section>
 
-<!-- PROOF -->
-<section class="section" style="background:var(--white);">
-  <div class="container">
-    <div style="text-align:center;margin-bottom:44px;" class="fade">
-      <div class="hr"></div>
-      <h2 class="headline">Rezultate reale</h2>
+  <!-- RECALIBRATION -->
+  <div class="tab-content" id="tab-recal">
+    <div class="tab-card">
+      <span class="tab-badge badge-core">The Recalibration — Workshop</span>
+      <h3>Recalibrare după 35</h3>
+      <p class="tab-card-sub">Pentru oamenii care au construit mult, dar simt că structura în care trăiesc nu îi mai reprezintă complet</p>
+      <p class="tab-card-desc">Un workshop intensiv care te ajută să te oprești, să te înțelegi mai bine și să îți clarifici relația cu identitatea, valorile și direcția personală.</p>
+      <ul class="tab-list">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>Claritate, identitate și direcție personală</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>Recalibrare practică — decizii mai sincere</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>Limite mai clare, direcții mai asumate</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>Energie acolo unde există autenticitate</li>
+      </ul>
+      <div class="tab-price-row">
+        <span class="tab-price">189 RON</span>
+      </div>
+      <div class="tab-urgency">🔥 Preț redus — ofertă limitată</div>
+      <a href="#" class="btn-yellow">👉 Accesează Workshop-ul</a>
     </div>
-    <p class="proof-statement fade"><strong>Informația nu lipsește. Structura lipsește.</strong> Oamenii care au trecut prin acest sistem nu au primit motivație. Au primit un cadru clar în care să acționeze. Asta face diferența.</p>
-    <div class="proof-grid fade">
-      <div class="proof-card"><div class="proof-ph">Screenshot / Testimonial</div></div>
-      <div class="proof-card"><div class="proof-ph">Screenshot / Testimonial</div></div>
-      <div class="proof-card"><div class="proof-ph">Screenshot / Testimonial</div></div>
+  </div>
+
+  <!-- THE SYSTEM -->
+  <div class="tab-content" id="tab-system">
+    <div class="tab-card">
+      <span class="tab-badge badge-pro">The System — Design Your Destiny</span>
+      <h3>Pachetul Complet DYD</h3>
+      <p class="tab-card-sub">Pentru cei care vor o experiență mai amplă și mai bine integrată</p>
+      <p class="tab-card-desc">Nu mai înveți singur. Construiești un sistem complet de transformare ghidată — structură, direcție și recalibrare personală și profesională într-un cadru aplicat.</p>
+      <ul class="tab-list">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>Modulul 1 — Fundație și identitate</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>Modulul 2 — Sistem și execuție</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>Transformare ghidată în 30 de zile</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>Acces complet la universul DYD</li>
+      </ul>
+      <div class="tab-price-row">
+        <span class="tab-price">1.489 RON</span>
+        <span class="tab-price-old">2.489 RON</span>
+      </div>
+      <div class="tab-urgency">🔥 Economisești 1.000 RON — preț redus activ</div>
+      <a href="#" class="btn-yellow">👉 Accesează Sistemul</a>
     </div>
-    <div style="text-align:center;" class="fade">
-      <a href="#free" class="btn-main">👉 Vreau și eu asta</a>
+  </div>
+
+  <!-- FULL TRANSFORMATION -->
+  <div class="tab-content" id="tab-vip">
+    <div class="tab-card">
+      <span class="tab-badge badge-vip">Full Transformation — Premium DYD</span>
+      <h3>Pachet Premium<br>Design Your Destiny</h3>
+      <p class="tab-card-sub">Pentru cei care vor nu doar conținut — ci ghidare directă într-un cadru mai aplicat și mai personalizat</p>
+      <p class="tab-card-desc">O experiență premium completă. Lucrezi direct cu Laurentiu. Primești structură, responsabilitate și ghidare personalizată pe situația ta specifică.</p>
+      <ul class="tab-list">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>Modulul 1 + Modulul 2 — acces complet</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>Transformare ghidată în 30 de zile</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>5 sesiuni individuale 1:1 cu Laurentiu</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>Feedback și ajustări în timp real</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>Acces prioritar și suport direct</li>
+      </ul>
+      <div class="tab-price-row">
+        <span class="tab-price">5.899 RON</span>
+      </div>
+      <div class="tab-urgency">⚠️ Locuri limitate — aplicații revizuite individual</div>
+      <a href="#" class="btn-teal">👉 Aplică Acum</a>
     </div>
   </div>
 </section>
 
 <!-- ABOUT -->
-<section class="section" style="background:var(--bg);">
-  <div class="container">
-    <div class="about-inner">
-      <div class="about-ph fade">Fotografia ta</div>
-      <div class="about-text">
-        <span class="pill fade">Despre mine</span>
-        <h2 class="subhead fade">Nu predau motivație.<br>Nu cred în ea.</h2>
-        <p class="fade">Am trăit același ciclu ani la rând. Știam ce trebuie făcut. Nu rămâneam constant. Și nu pentru că nu voiam destul de mult.</p>
-        <p class="fade">Diferența nu a venit dintr-un discurs inspirațional. A venit din primul sistem care chiar a funcționat.</p>
-        <p class="fade">Ăsta e ce construiesc și pentru tine. Nu entuziasm de scurtă durată. Control real, pe termen lung.</p>
-      </div>
+<section class="about-dark">
+  <div class="section-label fade"><span class="dot"></span> DESPRE LAURENTIU</div>
+  <h2 class="fade">Nu predau motivație.<br>Nu cred în ea.</h2>
+  <p class="about-sub fade">Am trăit același ciclu ani la rând. Știam ce trebuie făcut. Nu rămâneam constant. Diferența nu a venit dintr-un discurs inspirațional — a venit din primul sistem care chiar a funcționat.</p>
+  <img src="photo-about.jpg" alt="Laurentiu Mocanu" class="about-photo fade">
+  <div class="credentials fade">
+    <span class="cred-tag">US Navy Veteran</span>
+    <span class="cred-tag">MBA</span>
+    <span class="cred-tag">BSFM</span>
+    <span class="cred-tag">MAHRM</span>
+    <span class="cred-tag">Founder SFM & SIHR</span>
+    <span class="cred-tag">PM Expert</span>
+    <span class="cred-tag">Design Your Destiny</span>
+  </div>
+</section>
+
+
+
+<!-- KEY BENEFITS -->
+<section class="benefits">
+  <h2 class="fade">Tot ce ai nevoie<br>pentru schimbare reală</h2>
+  <div class="benefits-grid">
+    <div class="benefit-item fade">
+      <h3>Elimini autosabotajul</h3>
+      <p>Identifici tiparele distructive care te țin pe loc și le înlocuiești cu o bază mentală stabilă.</p>
+    </div>
+    <div class="benefit-item fade">
+      <h3>Instalezi un sistem real</h3>
+      <p>Nu mai depinzi de motivație. Construiești o structură care funcționează în orice circumstanță.</p>
+    </div>
+    <div class="benefit-item fade">
+      <h3>Scapi de haos și amânare</h3>
+      <p>Creezi o viziune clară și aliniezi acțiunile zilnice cu rezultatele pe care le vrei.</p>
+    </div>
+    <div class="benefit-item fade">
+      <h3>Devii constant</h3>
+      <p>Nu mai ești omul care încearcă. Ești omul care execută — zi după zi, fără excepție.</p>
     </div>
   </div>
 </section>
 
+<!-- TRANSFORMATION -->
+<section class="white-section">
+  <h2 class="fade">Viața ta nu va mai fi<br>la fel după aceasta.</h2>
+  <p class="fade">Sistemul îți dă structura să ajungi la rădăcina limitărilor tale, să îți examinezi credințele și să descoperi puterea personală care îți poate modela viitorul.</p>
+</section>
+
+<!-- DAYS -->
+<section class="days">
+  <div class="day-item fade">
+    <div class="day-label">Faza 01</div>
+    <h3>Descoperă-ți identitatea reală</h3>
+    <p>Transformi frica în putere. Spargi credințele limitative. Câștigi claritatea necesară pentru a proiecta o calitate extraordinară a vieții.</p>
+    <img src="photo-faza1.jpg" alt="Design Your Destiny" style="width:100%;max-width:720px;border-radius:8px;margin:0 auto;display:block;object-fit:cover;max-height:420px;">
+  </div>
+  <div class="day-item fade">
+    <div class="day-label">Faza 02</div>
+    <h3>Creează momentum de neoprit</h3>
+    <p>Evaluezi rădăcina comportamentelor tale și înțelegi cum sursele de influență pot fi modificate pentru a crea viața pe care o vrei.</p>
+    <img src="photo-faza2.jpg" alt="Faza 2" style="width:100%;max-width:720px;border-radius:8px;margin:0 auto;display:block;object-fit:cover;max-height:420px;">
+  </div>
+  <div class="day-item fade">
+    <div class="day-label">Faza 03</div>
+    <h3>Transformare din interior spre exterior</h3>
+    <p>Câștigi instrumentele pentru succes sustenabil prin focus, eliminarea blocajelor și execuție constantă.</p>
+    <img src="photo-faza3.jpg" alt="Faza 3" style="width:100%;max-width:720px;border-radius:8px;margin:0 auto;display:block;object-fit:cover;max-height:420px;">
+  </div>
+</section>
+
+<!-- BLUE CTA -->
+<section class="blue-cta">
+  <h2 class="fade">Timpul tău este acum.</h2>
+  <p class="fade">Alătură-te celor care au folosit acest sistem pentru a depăși limitările și a crea viața pe care o doresc.</p>
+  <a href="#offers" class="btn-yellow fade">👉 Începe Acum</a>
+</section>
+
+<!-- BELIEF -->
+<section class="white-section">
+  <h2 class="fade">Distruge vocea<br>care te ține mic.</h2>
+  <p class="fade">Vei elimina pentru totdeauna credințele care spun:</p>
+  <div class="belief-tags fade">
+    <span class="belief-tag">"Nu pot"</span>
+    <span class="belief-tag">"Nu am timp"</span>
+    <span class="belief-tag">"Nu sunt destul de bun"</span>
+  </div>
+  <p class="fade" style="margin-bottom:0; font-weight:600; color:#111;">Și orice altă minciună care te-a ținut pe loc.</p>
+</section>
+
+<!-- GUARANTEE -->
+<section class="guarantee">
+  <h2 class="fade">100% Fără Risc</h2>
+  <p class="fade">Intri cu încredere. Sistemul fie funcționează, fie ajustăm împreună până funcționează.</p>
+  <div class="guarantee-box fade">
+    <p>Dacă aplici zilnic și nu simți nicio schimbare în primele 7 zile, Laurentiu îți răspunde personal și identificați împreună ce trebuie ajustat. Nu ești singur în asta.</p>
+  </div>
+</section>
+
 <!-- FAQ -->
-<section class="section" style="background:var(--white);">
-  <div class="container">
-    <div style="text-align:center;margin-bottom:44px;" class="fade">
-      <div class="hr"></div>
-      <h2 class="headline">Întrebări frecvente</h2>
+<section class="faq">
+  <div class="faq-inner">
+    <div class="faq-title">
+      <div class="section-label fade" style="color:var(--muted);"><span class="dot" style="background:var(--muted);"></span> FREQUENTLY ASKED QUESTIONS</div>
+      <h2 class="fade">FAQs</h2>
     </div>
-    <div class="acc-wrap fade">
-      <div class="acc-item">
-        <button class="acc-btn">Funcționează dacă am mai eșuat înainte? <span class="acc-icon">+</span></button>
-        <div class="acc-body"><p>Da. Sistemul e construit exact pentru oameni care au mai încercat și s-au oprit. Problema nu a fost tu — a fost absența structurii.</p></div>
+    <div class="faq-list fade">
+      <div class="faq-item">
+        <button class="faq-btn"><span class="faq-arrow">▼</span> Funcționează dacă am mai eșuat înainte?</button>
+        <div class="faq-body"><p>Da. Sistemul e construit exact pentru oameni care au mai încercat și s-au oprit. Problema nu a fost tu — a fost absența structurii.</p></div>
       </div>
-      <div class="acc-item">
-        <button class="acc-btn">Cât durează până văd rezultate reale? <span class="acc-icon">+</span></button>
-        <div class="acc-body"><p>Primele schimbări sunt vizibile în primele zile dacă aplici zilnic. Nu vorbim de luni de așteptat. Structura produce claritate rapid.</p></div>
+      <div class="faq-item">
+        <button class="faq-btn"><span class="faq-arrow">▼</span> Cât durează până văd rezultate reale?</button>
+        <div class="faq-body"><p>Primele schimbări sunt vizibile în primele zile dacă aplici zilnic. Nu vorbim de luni de așteptat.</p></div>
       </div>
-      <div class="acc-item">
-        <button class="acc-btn">Trebuie să am o bază prealabilă? <span class="acc-icon">+</span></button>
-        <div class="acc-body"><p>Nu. Începi de exact unde ești acum. Sistemul e construit să funcționeze de la zero.</p></div>
+      <div class="faq-item">
+        <button class="faq-btn"><span class="faq-arrow">▼</span> Trebuie să am o bază prealabilă?</button>
+        <div class="faq-body"><p>Nu. Începi de exact unde ești acum. Sistemul e construit să funcționeze de la zero.</p></div>
       </div>
-      <div class="acc-item">
-        <button class="acc-btn">Care e diferența reală dintre program și mentorat? <span class="acc-icon">+</span></button>
-        <div class="acc-body"><p>Programul îți dă sistemul complet — îl urmezi în propriul ritm. Mentoratul îl construiește cu tine, adaptat la situația ta, cu responsabilitate directă și feedback în timp real.</p></div>
+      <div class="faq-item">
+        <button class="faq-btn"><span class="faq-arrow">▼</span> Care e diferența dintre pachete?</button>
+        <div class="faq-body"><p>Free Entry îți dă primul pas gratuit. The Recalibration e un workshop intensiv. The System e programul complet DYD. Full Transformation adaugă 5 sesiuni 1:1 directe cu Laurentiu.</p></div>
       </div>
-      <div class="acc-item">
-        <button class="acc-btn">Ce se întâmplă dacă nu văd rezultate? <span class="acc-icon">+</span></button>
-        <div class="acc-body"><p>Sistemul funcționează dacă e aplicat. Dacă aplici și ceva nu merge — ajustăm. Mentoratul privat include exact asta: feedback și corecție în timp real.</p></div>
+      <div class="faq-item">
+        <button class="faq-btn"><span class="faq-arrow">▼</span> Ce se întâmplă dacă nu văd rezultate?</button>
+        <div class="faq-body"><p>Dacă aplici și ceva nu merge — ajustăm. Laurentiu îți răspunde personal și identificați soluția împreună.</p></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- FINAL CTA -->
-<section class="final">
-  <div class="container">
-    <div class="hr fade"></div>
-    <h2 class="headline fade">Un sistem simplu bate<br>orice val de motivație.<br><em>Întotdeauna.</em></h2>
-    <p class="fade">Construiește-l acum.</p>
-    <div class="final-stack fade">
-      <a href="#free" class="btn-white">👉 Începe Gratuit</a>
-      <a href="#offers" class="btn-ghost" style="color:rgba(255,255,255,0.55);">sau vezi toate opțiunile</a>
-    </div>
+<section class="final-cta">
+  <div class="final-cta-bg">DESTINY</div>
+  <div class="final-cta-inner">
+    <h2 class="fade">Un sistem simplu<br>bate orice val<br>de motivație.</h2>
+    <a href="#offers" class="btn-yellow fade">👉 Accesează Gratuit Acum</a>
     <div class="trust-row fade">
-      <div class="trust-item"><span>✓</span> Acces imediat</div>
-      <div class="trust-item"><span>✓</span> Fără riscuri</div>
-      <div class="trust-item"><span>✓</span> Sistem testat</div>
-      <div class="trust-item"><span>✓</span> Suport direct</div>
+      <div class="trust-item"><div class="trust-check">✓</div> Acces imediat</div>
+      <div class="trust-item"><div class="trust-check">✓</div> Fără riscuri</div>
+      <div class="trust-item"><div class="trust-check">✓</div> Sistem testat</div>
+      <div class="trust-item"><div class="trust-check">✓</div> Suport direct</div>
     </div>
   </div>
 </section>
 
-<!-- STICKY BAR -->
+<!-- STICKY -->
 <div class="sticky">
-  <span class="sticky-txt">Controlul începe cu un sistem →</span>
-  <a href="#free" class="btn-main">Începe Gratuit</a>
+  <div class="sticky-text">Accesează <span>Gratuit</span> acum</div>
+  <a href="#offers" class="btn-yellow">Începe Gratuit →</a>
 </div>
 
 <script>
+  function switchTab(id, btn) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  document.querySelectorAll('.faq-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
   const obs = new IntersectionObserver((entries) => {
     entries.forEach((e, i) => {
       if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('in'), i * 55);
+        setTimeout(() => e.target.classList.add('in'), i * 60);
         obs.unobserve(e.target);
       }
     });
   }, { threshold: 0.07 });
   document.querySelectorAll('.fade').forEach(el => obs.observe(el));
-
-  document.querySelectorAll('.acc-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const item = btn.parentElement;
-      const isOpen = item.classList.contains('open');
-      document.querySelectorAll('.acc-item').forEach(i => i.classList.remove('open'));
-      if (!isOpen) item.classList.add('open');
-    });
-  });
 </script>
 </body>
 </html>
